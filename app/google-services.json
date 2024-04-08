@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "459935656119",
+    "project_id": "will-s-final-project",
+    "storage_bucket": "will-s-final-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459935656119:android:34ce5ef091f90aa21a0532",
+        "android_client_info": {
+          "package_name": "edu.utap.finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAw-HBbCOTRSjg-IMznnOdGUuPfm40sBYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
