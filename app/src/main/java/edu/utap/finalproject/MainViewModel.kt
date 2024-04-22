@@ -6,12 +6,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.room.Room
+import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import edu.utap.finalproject.repository.localdatabase.LocalDataSource
 import edu.utap.finalproject.repository.firebase.RemoteDataSource
 import edu.utap.finalproject.repository.car.CarRepository
+import edu.utap.finalproject.repository.reservation.ReservationApiModelOutgoing
 import edu.utap.finalproject.repository.reservation.ReservationRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,6 +34,22 @@ class MainViewModel(
     fun setShowToolbar(value: Boolean){
         Log.d(javaClass.simpleName, "Changing toolbar from ${_showToolbar.value} to $value")
         _showToolbar.value = value
+    }
+
+    fun carIdToReference(carId: String): DocumentReference {
+        val firebase = Firebase.firestore
+        return firebase.document("/cars/$carId")
+    }
+
+    fun sendReservationRequest(request: ReservationApiModelOutgoing): Task<DocumentReference> {
+        val firebase = Firebase.firestore
+        val auth = Firebase.auth
+        val collection = firebase.collection("/user_data/${auth.currentUser!!.uid}/reservations")
+        val doc = collection.add(request)
+            .addOnSuccessListener {
+                Log.d(javaClass.simpleName, "The request succeeded!")
+            }
+        return doc
     }
 
     companion object {

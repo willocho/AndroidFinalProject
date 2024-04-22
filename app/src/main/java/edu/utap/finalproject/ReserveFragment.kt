@@ -1,6 +1,7 @@
 package edu.utap.finalproject
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import edu.utap.finalproject.databinding.ReserveCarBinding
+import edu.utap.finalproject.repository.car.CarLocalModel
+import edu.utap.finalproject.repository.reservation.ReservationApiModelOutgoing
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -27,14 +34,12 @@ class ReserveFragment : Fragment() {
 
     private val navArgs: ReserveFragmentArgs by navArgs()
     private val viewModel: MainViewModel by activityViewModels()
+    private var cars: List<CarLocalModel> = listOf()
 
     private val startDate = Calendar.getInstance()
     private val endDate = Calendar.getInstance()
     private val timeFormat = SimpleDateFormat("h:mma", Locale.getDefault())
     private val dateFormat = SimpleDateFormat("dMMMyyyy", Locale.getDefault())
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,15 +48,27 @@ class ReserveFragment : Fragment() {
     ): View {
         _binding = ReserveCarBinding.inflate(inflater, container, false)
 
-
         lifecycleScope.launch {
             viewModel.cars.collect {
+                cars = it
+
                 val adapter = ArrayAdapter(
                     requireContext(),
                     androidx.transition.R.layout.support_simple_spinner_dropdown_item,
                     it.map { car -> car.licensePlate }
                 )
+
+
                 binding.reserveSpinner.adapter = adapter
+
+                if(navArgs.car != null){
+                    val index = cars.indexOfFirst { car -> car.documentId == navArgs!!.car!!.documentId }
+                    binding.reserveSpinner.setSelection(index)
+                    Log.d(javaClass.simpleName, "Selected car at index $index")
+                }
+                else{
+                    Log.d(javaClass.simpleName, "Car parameter was null!")
+                }
             }
         }
 
@@ -95,15 +112,29 @@ class ReserveFragment : Fragment() {
                 Toast.makeText(context, "End time before start time", Toast.LENGTH_SHORT).show()
             }
             else{
-
+                binding.submitButton.isEnabled = false
+                val selectedCar = binding.reserveSpinner.selectedItem
+                val car = cars.filter {
+                    it.licensePlate == selectedCar
+                }[0]
+                val outgoingRequest = ReservationApiModelOutgoing(
+                    Timestamp(startDate.time),
+                    Timestamp(endDate.time),
+                    viewModel.carIdToReference(car.documentId)
+                )
+                val request = viewModel.sendReservationRequest(outgoingRequest)
+                request.addOnSuccessListener {
+                    Toast.makeText(context, "Reservation request successful", Toast.LENGTH_SHORT).show()
+                    val directions = ReserveFragmentDirections.actionToReservations()
+                    findNavController().navigate(directions)
+                }
+                request.addOnFailureListener {
+                    Toast.makeText(context, "Reservation request failed", Toast.LENGTH_SHORT).show()
+                    binding.submitButton.isEnabled = true
+                }
             }
         }
 
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
 }

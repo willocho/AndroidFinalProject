@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class ReservationsFragment : Fragment() {
 
-    val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentReservationsBinding? = null
     private val binding get() = _binding!!

@@ -2,6 +2,7 @@ package edu.utap.finalproject.repository.car
 
 import android.util.Log
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import edu.utap.finalproject.repository.firebase.RemoteDataSource
 import edu.utap.finalproject.repository.localdatabase.CarDao
 import kotlinx.coroutines.Dispatchers

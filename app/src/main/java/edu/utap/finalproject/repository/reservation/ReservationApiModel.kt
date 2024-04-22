@@ -10,3 +10,9 @@ data class ReservationApiModel(
     val endTime: Timestamp = Timestamp(Date(0)),
     val car: DocumentReference? = null,
 )
+
+data class ReservationApiModelOutgoing(
+    val startTime: Timestamp = Timestamp(Date(0)),
+    val endTime: Timestamp = Timestamp(Date(0)),
+    val car: DocumentReference? = null
+)
