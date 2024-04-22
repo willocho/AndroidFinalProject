@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ReservationsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/idHeaderTV"
+                android:gravity="start"
+                android:layout_weight="1"
+                android:text="@string/car_id"
+                android:textStyle="bold"
+                />
+            <View
+                android:layout_width="@dimen/reservation_row_spacing"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/startTimeHeaderTV"
+                android:gravity="start"
+                android:layout_weight="3"
+                android:text="Start time"
+                android:textStyle="bold"
+                />
+            <View
+                android:layout_width="@dimen/reservation_row_spacing"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/endTimeHeaderTV"
+                android:gravity="start"
+                android:layout_weight="3"
+                android:text="End time"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/upcomingReservationRV"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

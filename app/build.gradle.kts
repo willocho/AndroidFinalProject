@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
     id("com.google.gms.google-services")
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -72,6 +73,7 @@ dependencies {
     implementation(libs.androidx.room.runtime) {
         exclude(group = "com.intellij", module = "annotations")
     }
+    implementation(libs.firebase.auth.ktx)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
     implementation("androidx.room:room-ktx")

@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.1"
+agp = "8.3.2"
 androidxRoomGradlePlugin = "2.6.1"
 firebaseBom = "32.8.0"
 kotlin = "1.9.0"
@@ -11,6 +11,7 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.7.0"
 composeBom = "2023.08.00"
 googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
+navigationSafeArgsGradlePlugin = "2.7.7"
 playServicesMaps = "18.2.0"
 appcompat = "1.6.1"
 material = "1.11.0"
@@ -19,10 +20,12 @@ navigationFragment = "2.7.7"
 firebaseCommonKtx = "20.4.3"
 firebaseFirestoreKtx = "24.11.0"
 roomCompiler = "2.6.1"
+firebaseAuthKtx = "22.3.1"
 
 [libraries]
 androidx-androidx-room-gradle-plugin = { module = "androidx.room:androidx.room.gradle.plugin", version.ref = "androidxRoomGradlePlugin" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidxRoomGradlePlugin" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -46,6 +49,7 @@ androidx-navigation-fragment = { group = "androidx.navigation", name = "navigati
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

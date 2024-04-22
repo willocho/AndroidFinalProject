@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mapNavItem"
+        android:enabled="true"
+        android:icon="@drawable/round_add_road_24"
+        android:title="Map"
+        />
+    <item
+        android:id="@+id/scheduleNavItem"
+        android:enabled="true"
+        android:icon="@drawable/outline_analytics_24"
+        android:title="Reservations"
+        />
+    <item
+        android:id="@+id/reserveNavItem"
+        android:enabled="true"
+        android:icon="@drawable/baseline_add_shopping_cart_24"
+        android:title="Reserve Car"
+        />
+</menu>
